@@ -16,7 +16,7 @@ async function main() {
         const [owner, repo] = core.getInput("repo", { required: true }).split("/")
         const path = core.getInput("path", { required: true })
         const name = core.getInput("name")
-        let workflow_conclusion = core.getInput("workflow_conclusion")
+        //let workflow_conclusion = core.getInput("workflow_conclusion")
         let pr = core.getInput("pr")
         let commit = core.getInput("commit")
         let branch = core.getInput("branch")
@@ -28,9 +28,9 @@ async function main() {
             throw new Error("don't specify `run_id`, `branch`, `pr`, `commit` together")
         }
 
-        if ([runID, workflow_conclusion].filter(elem => elem).length > 1) {
-            throw new Error("don't specify `run_id`, `workflow_conclusion` together")
-        }
+        //if ([runID, workflow_conclusion].filter(elem => elem).length > 1) {
+        //    throw new Error("don't specify `run_id`, `workflow_conclusion` together")
+        //}
 
         if (!workflow_conclusion) {
             workflow_conclusion = "completed"
@@ -58,13 +58,12 @@ async function main() {
         }
 
         if (!runID) {
-            const endpoint = "GET /repos/:owner/:repo/actions/workflows/:id/runs?status=:status&branch=:branch"
+            const endpoint = "GET /repos/:owner/:repo/actions/workflows/:id/runs?branch=:branch"
             const params = {
                 owner: owner,
                 repo: repo,
                 id: workflow,
-                branch: branch,
-                status: workflow_conclusion,
+                branch: branch
             }
             for await (const runs of client.paginate.iterator(endpoint, params)) {
                 const run = runs.data.find(r => {
