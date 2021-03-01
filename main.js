@@ -19,7 +19,7 @@ async function main() {
         //let workflow_conclusion = core.getInput("workflow_conclusion")
         let pr = core.getInput("pr")
         let commit = core.getInput("commit")
-        let branch = core.getInput("branch")
+        //let branch = core.getInput("branch")
         let runID = core.getInput("run_id")
 
         const client = github.getOctokit(token)
@@ -58,12 +58,11 @@ async function main() {
         }
 
         if (!runID) {
-            const endpoint = "GET /repos/:owner/:repo/actions/workflows/:id/runs?branch=:branch"
+            const endpoint = "GET /repos/:owner/:repo/actions/workflows/:id/runs"
             const params = {
                 owner: owner,
                 repo: repo,
-                id: workflow,
-                branch: branch
+                id: workflow
             }
             for await (const runs of client.paginate.iterator(endpoint, params)) {
                 const run = runs.data.find(r => {
