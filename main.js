@@ -32,13 +32,13 @@ async function main() {
         //    throw new Error("don't specify `run_id`, `workflow_conclusion` together")
         //}
 
-        if (!workflow_conclusion) {
-            workflow_conclusion = "completed"
-        }
+        //if (!workflow_conclusion) {
+        //    workflow_conclusion = "completed"
+        //}
 
-        if(!allowed_workflow_conclusions.includes(workflow_conclusion)) {
-            throw new Error(`Unknown workflow conclusion '${workflow_conclusion}'`)
-        }
+        //if(!allowed_workflow_conclusions.includes(workflow_conclusion)) {
+        //    throw new Error(`Unknown workflow conclusion '${workflow_conclusion}'`)
+        //}
 
         console.log("==> Repo:", owner + "/" + repo)
 
